@@ -1,11 +1,11 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../ntc')
-var build = require('../ctn')
+var notation = require('..')
+var build = notation.note.fromCoord
 
 function test (notes) {
   var expected = notes.split(' ')
-  var actual = expected.map(parse).map(build)
+  var actual = expected.map(notation.note.toCoord).map(notation.note.fromCoord)
   assert.deepEqual(actual, expected)
 }
 

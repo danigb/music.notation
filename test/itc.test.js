@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../itc')
+var parse = require('..').interval.toCoord
 
 vows.describe('interval to coord').addBatch({
   'ascending intervals': function () {

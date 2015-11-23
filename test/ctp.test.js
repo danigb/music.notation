@@ -1,11 +1,12 @@
 var vows = require('vows')
 var assert = require('assert')
-var props = require('../ctp')
-var note = require('../ntc')
-var interval = require('../itc')
+var notation = require('..')
+var note = notation.note.toCoord
+var interval = notation.interval.toCoord
+var props = notation.coord.toProps
 
 function prop (i, str, parser) {
-  return str.split(' ').map(parser).map(props).map(function (e) { return e[i] })
+  return str.split(' ').map(parser).map(notation.coord.toProps).map(function (e) { return e[i] })
 }
 
 vows.describe('coord to props').addBatch({

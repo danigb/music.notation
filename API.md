@@ -15,7 +15,7 @@ and the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimis
 **Examples**
 
 ```javascript
-var str = require('music.notation/cti')
+var str = require('tonal.notation/cti')
 str([1, 0, 0]) // => '2M'
 str([1, 0, 1]) // => '9M'
 ```
@@ -41,7 +41,7 @@ This function is memoized for better perfomance.
 **Examples**
 
 ```javascript
-var str = require('music.notation/ctn')
+var str = require('tonal.notation/ctn')
 str([0]) // => 'F'
 str([0, 4]) // => null (its an interval)
 str([0, 4, null]) // => 'F4'
@@ -65,7 +65,7 @@ The properties is in the form [number, alteration, octave, duration]
 **Examples**
 
 ```javascript
-var props = require('music.notation/ctp')
+var props = require('tonal.notation/ctp')
 props([2, 1, 4]) // => [1, 2, 4]
 ```
 
@@ -85,7 +85,7 @@ This function is cached for better performance.
 **Examples**
 
 ```javascript
-var parse = require('music.notation/itc')
+var parse = require('tonal.notation/itc')
 parse('3m') // => [2, -1, 0]
 parse('9b') // => [1, -1, 1]
 parse('-2M') // => [6, -1, -1]
@@ -110,7 +110,7 @@ This function is cached for better performance.
 **Examples**
 
 ```javascript
-var parse = require('music.notation/ntc')
+var parse = require('tonal.notation/ntc')
 parse('C') // => [ 0 ]
 parse('c#') // => [ 8 ]
 parse('c##') // => [ 16 ]

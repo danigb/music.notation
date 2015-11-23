@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('../ntc')
+var parse = require('..').note.toCoord
 
 vows.describe('note to coord').addBatch({
   'parse pitch class': function () {

@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var roman = require('../rtc')
+var roman = require('..').romans.toCoord
 
 function fifths (str) {
   return str.split(' ').map(roman).map(function (e) { return e[0] })
