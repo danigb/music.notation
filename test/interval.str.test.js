@@ -4,11 +4,11 @@ var interval = require('..').interval
 
 function test (intervals, expected) {
   expected = expected || intervals
-  var actual = intervals.split(' ').map(interval.coord)
+  var actual = intervals.split(' ').map(interval.parse)
   assert.deepEqual(actual.map(interval.str).join(' '), expected)
 }
 
-vows.describe('coord to interval string').addBatch({
+vows.describe('interval.str').addBatch({
   'simples': function () {
     test('1 2 3 4 5 6 7 8', '1P 2M 3M 4P 5P 6M 7M 8P')
     test('1b 2b 3b 4b 5b 6b 7b 8b', '1d 2m 3m 4d 5d 6m 7m 8d')

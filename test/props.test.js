@@ -1,15 +1,15 @@
 var vows = require('vows')
 var assert = require('assert')
 var notation = require('..')
-var note = notation.note.coord
-var interval = notation.interval.coord
+var note = notation.note.parse
+var interval = notation.interval.parse
 var props = notation.props
 
 function prop (i, str, parser) {
   return str.split(' ').map(parser).map(notation.props).map(function (e) { return e[i] })
 }
 
-vows.describe('coord to props').addBatch({
+vows.describe('notation.props').addBatch({
   'note letters': function () {
     assert.deepEqual(prop(0, 'C D E F G A B', note), [0, 1, 2, 3, 4, 5, 6])
     assert.deepEqual(prop(0, 'C2 D2 E2 F2 G2 A2 B2', note), [0, 1, 2, 3, 4, 5, 6])

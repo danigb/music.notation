@@ -21,7 +21,7 @@ vows.describe('note split').addBatch({
     assert(eq(split('cbb4'), ['cbb4', 'c', 'bb', '4']))
   },
   'notes with duration': function () {
-    assert(eq(split('cbb4:3'), ['cbb4:3', 'c', 'bb', '4', ':3']))
+    assert(eq(split('cbb4/3'), ['cbb4/3', 'c', 'bb', '4', '/3']))
   },
   'chords': function () {
     assert(eq(split('CbMaj7'), ['CbMaj7', 'C', 'b', '', '', 'Maj7']))

@@ -4,11 +4,11 @@ var note = require('..').note
 
 function test (notes) {
   var expected = notes.split(' ')
-  var actual = expected.map(note.coord).map(note.str)
+  var actual = expected.map(note.parse).map(note.str)
   assert.deepEqual(actual, expected)
 }
 
-vows.describe('coord to note string').addBatch({
+vows.describe('note.str').addBatch({
   'pitch classes': function () {
     test('C D E F G A B')
     test('C# D# E# F# G# A# B#')
@@ -22,7 +22,7 @@ vows.describe('coord to note string').addBatch({
     test('C-1 D-1 E-1 F-1 G-1 A-1 B-1')
   },
   'durations': function () {
-    test('C0:1 D0:2 E0:4 F0:8 G0:16 A0:32 B0:64')
+    test('C0/1 D0/2 E0/4 F0/8 G0/16 A0/32 B0/64')
   },
   'invalid arrays': function () {
     assert.equal(note.str(null), null)

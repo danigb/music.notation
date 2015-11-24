@@ -8,7 +8,7 @@
 [![tonal](https://img.shields.io/badge/tonal-kit-yellow.svg)](https://www.npmjs.com/package/tonal)
 
 
-`tonal.notation` is a collection of javascript functions to parse strings with pitch representations and convert them to different numerical representations. Pitch in this context mean notes, intervals, pitch classes, roman numerals and other pitched elements (like chords)
+`tonal.notation` is a collection of javascript functions to parse strings to numerical pitch representations and convert them back to strings. Pitch in this context mean notes, intervals, pitch classes, roman numerals and other pitched elements (like chords)
 
 This is a low level library and part of [tonal](https://www.npmjs.com/package/tonal)
 
@@ -16,9 +16,9 @@ You can parse pitches:
 
 ```js
 var notation = require('tonal.notation')
-notation.note.toCoord('C2') // => [0, 2, null]
-notation.interval.toCoord('5P') // => [1, 0]
-notation.roman.toCoord('IV') // => [-1, 0]
+notation.note.parse('C2') // => [0, 2, null]
+notation.interval.parse('5P') // => [1, 0]
+notation.roman.parse('IV') // => [-1, 0]
 ```
 
 Or you can create your own parsers:

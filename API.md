@@ -48,10 +48,10 @@ Returns an array with the string parts:
 Returns `Array` array - the string parts
 
 
-## `itc`
+## `interval.parse`
 
-__Interval to coord__: Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
-to [coord interval notation](https://github.com/danigb/music.array.notation)
+Parse a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
+to [interval coord notation](https://github.com/danigb/music.array.notation)
 
 This function is cached for better performance.
 
@@ -63,36 +63,13 @@ This function is cached for better performance.
 ### Examples
 
 ```js
-var parse = require('tonal.notation/itc')
+var parse = require('tonal.notation/interval.parse')
 parse('3m') // => [2, -1, 0]
 parse('9b') // => [1, -1, 1]
 parse('-2M') // => [6, -1, -1]
 ```
 
 Returns `Array` the interval in array notation or null if not a valid interval
-
-
-## `notation.coord`
-
-Decorate coordtinate conversion functions
-
-It helps creating functions that convert from string to pitch in coordinate format.
-Basically it does two things:
-- ensure the function only receives strings
-- memoize the result
-
-
-
-### Examples
-
-```js
-var coord = require('tonal.notataion/coord')
-var parse = coord(function (str) {
-  // str is ALWAYS a string
-  // the return value is memoized
-})
-```
-
 
 
 ## `notation.interval`
@@ -139,7 +116,30 @@ note('blah') // => null
 Returns `String` the note in scientific notation
 
 
-## `note.coord`
+## `notation.parser`
+
+Decorate coordtinate conversion functions
+
+It helps creating functions that convert from string to pitch in coordinate format.
+Basically it does two things:
+- ensure the function only receives strings
+- memoize the result
+
+
+
+### Examples
+
+```js
+var parser = require('tonal.notataion/parser')
+var parse = parser(function (str) {
+  // str is ALWAYS a string
+  // the return value is memoized
+})
+```
+
+
+
+## `note.parse`
 
 Get a pitch in [coord pitch notation](https://github.com/danigb/music.array.notation)
 from a string in [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
@@ -157,15 +157,15 @@ This function is cached for better performance.
 ### Examples
 
 ```js
-var noteCoord = require('tonal.notation/note/coord')
-noteCoord('C') // => [ 0 ]
-noteCoord('c#') // => [ 8 ]
-noteCoord('c##') // => [ 16 ]
-noteCoord('Cx') // => [ 16 ] (double sharp)
-noteCoord('Cb') // => [ -6 ]
-noteCoord('db') // => [ -4 ]
-noteCoord('G4') // => [ 2, 3, null ]
-noteCoord('c#3') // => [ 8, -1, null ]
+var parse = require('tonal.notation/note.parse')
+parse('C') // => [ 0 ]
+parse('c#') // => [ 8 ]
+parse('c##') // => [ 16 ]
+parse('Cx') // => [ 16 ] (double sharp)
+parse('Cb') // => [ -6 ]
+parse('db') // => [ -4 ]
+parse('G4') // => [ 2, 3, null ]
+parse('c#3') // => [ 8, -1, null ]
 ```
 
 Returns `Array` the note in array notation or null if not valid note
@@ -263,7 +263,7 @@ Get a pitch in coordinate format from properties
 Returns `Array` the pitch in coordinate format
 
 
-## `rtc`
+## `roman.parser`
 
 Roman to coordinate: convert from [roman numerals](https://en.wikipedia.org/wiki/Roman_numeral_analysis)
 to [pitch coordinates]()
@@ -276,8 +276,9 @@ to [pitch coordinates]()
 ### Examples
 
 ```js
-rtc('V') // => [1]
-rtc('bII') // => [-5]
+var parse = require('tonal.notation/roman.parser')
+parse('V') // => [1]
+parse('bII') // => [-5]
 ```
 
 Returns `Array` a coord or null if not valid roman numeral literal
