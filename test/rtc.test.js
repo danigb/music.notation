@@ -1,6 +1,6 @@
 var vows = require('vows')
 var assert = require('assert')
-var roman = require('..').romans.toCoord
+var roman = require('..').roman.toCoord
 
 function fifths (str) {
   return str.split(' ').map(roman).map(function (e) { return e[0] })
@@ -16,5 +16,10 @@ vows.describe('roman numerals to coord').addBatch({
       fifths('i ii iii iv v vi vii').map(function (e) { return e - 7 }))
     assert.deepEqual(fifths('#I #II #III #IV #V #VI #VII'),
       fifths('i ii iii iv v vi vii').map(function (e) { return e + 7 }))
+  },
+  'invalid': function () {
+    assert.equal(roman(), null)
+    assert.equal(roman('VImaj7'), null)
+    assert.equal(roman('blah'), null)
   }
 }).export(module)

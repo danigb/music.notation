@@ -1,6 +1,7 @@
 CHANGELOG
 
 
+[0.0.9] Add roman numeral parse (4.7K)
 [0.0.8] Add note parse
 [0.0.7] Renamed to tonal.notation
 [0.0.6] First version ported from music.kit (4.3K)

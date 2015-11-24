@@ -1,30 +1,31 @@
-# cti
+## `cti`
 
-**Coord to interval**: Convert from [coord interval notation](https://github.com/danigb/music.array.notation)
+__Coord to interval__: Convert from [coord interval notation](https://github.com/danigb/music.array.notation)
 to [shorthand interval notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
 
 The returned string has the form: `number + quality` where number is the interval number
 (positive integer for ascending intervals, negative integer for descending intervals, never 0)
 and the quality is one of: 'M', 'm', 'P', 'd', 'A' (major, minor, perfect, dimished, augmented)
 
-**Parameters**
+### Parameters
 
--   `interval` **Array** the interval in array notation
--   `arr`  
+* `interval` **`Array`** the interval in array notation
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 var str = require('tonal.notation/cti')
 str([1, 0, 0]) // => '2M'
 str([1, 0, 1]) // => '9M'
 ```
 
-Returns **String** the interval string in shorthand notation or null if not valid interval
+Returns `String` the interval string in shorthand notation or null if not valid interval
 
-# ctn
 
-**Coord to note**: Convert from [array notation](https://github.com/danigb/music.array.notation)
+## `ctn`
+
+__Coord to note__: Convert from [array notation](https://github.com/danigb/music.array.notation)
 to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
 
 Array length must be 1 or 3 (see array notation documentation)
@@ -34,13 +35,14 @@ is always uppercase, and the accidentals, octave and duration are optional.
 
 This function is memoized for better perfomance.
 
-**Parameters**
+### Parameters
 
--   `arr` **Array** the note in array notation
+* `arr` **`Array`** the note in array notation
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 var str = require('tonal.notation/ctn')
 str([0]) // => 'F'
 str([0, 4]) // => null (its an interval)
@@ -48,54 +50,105 @@ str([0, 4, null]) // => 'F4'
 str([0, 4, 2]) // => 'F4/2'
 ```
 
-Returns **String** the note in scientific notation or null if not valid note array
+Returns `String` the note in scientific notation or null if not valid note array
 
-# ctp
 
-**Coord to props**: Convert from [coord pitch notation](<>)
-to [props pitch notation](<>)
+## `ctp`
+
+__Coord to props__: Convert from [coord pitch notation]()
+to [props pitch notation]()
 
 The properties is in the form [number, alteration, octave, duration]
 
-**Parameters**
+### Parameters
 
--   `array` **Array** the pitch in array notation
--   `arr`  
+* `array` **`Array`** the pitch in array notation
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 var props = require('tonal.notation/ctp')
 props([2, 1, 4]) // => [1, 2, 4]
 ```
 
-Returns **Array** the properties array
+Returns `Array` the properties array
 
-# itc
 
-**Interval to coord**: Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
+## `exports`
+
+Note parse: parse notes and pitched elements (like chords or scales)
+
+Returns an array with:
+
+- 0: the complete string
+- 1: the note letter
+- 2: the accidentals
+- 3: the octave
+- 4: the duration
+- 5: the element name
+
+### Parameters
+
+* `source` **`String`** the string to be parsed
+
+
+
+Returns `Array` the parsed parts or null if not valid note
+
+
+## `exports`
+
+Roman numeral parser: parse roman numerals and generic chords structures
+
+Returns an array with the string parts:
+
+- 0: the complete string
+- 1: the accidentals
+- 2: the roman numeral
+- 3: the structure name
+
+### Parameters
+
+* `source` **`String`** the string to parse
+
+
+### Examples
+
+```js
+
+```
+
+Returns `Array` array - the string parts
+
+
+## `itc`
+
+__Interval to coord__: Convert a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
 to [coord interval notation](https://github.com/danigb/music.array.notation)
 
 This function is cached for better performance.
 
-**Parameters**
+### Parameters
 
--   `interval` **String** the interval string
+* `interval` **`String`** the interval string
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 var parse = require('tonal.notation/itc')
 parse('3m') // => [2, -1, 0]
 parse('9b') // => [1, -1, 1]
 parse('-2M') // => [6, -1, -1]
 ```
 
-Returns **Array** the interval in array notation or null if not a valid interval
+Returns `Array` the interval in array notation or null if not a valid interval
 
-# ntc
 
-**Note to coord**: Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
+## `ntc`
+
+__Note to coord__: Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
 to [coord pitch notation](https://github.com/danigb/music.array.notation)
 
 The string to parse must be in the form of: `letter[accidentals][octave]`
@@ -103,13 +156,14 @@ The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
 
 This function is cached for better performance.
 
-**Parameters**
+### Parameters
 
--   `str` **String** the string to parse
+* `str` **`String`** the string to parse
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 var parse = require('tonal.notation/ntc')
 parse('C') // => [ 0 ]
 parse('c#') // => [ 8 ]
@@ -121,33 +175,37 @@ parse('G4') // => [ 2, 3, null ]
 parse('c#3') // => [ 8, -1, null ]
 ```
 
-Returns **Array** the note in array notation or null if not valid note
+Returns `Array` the note in array notation or null if not valid note
 
-# ptc
 
-**Props to coord**: convert from properties to coordinate
+## `ptc`
 
-**Parameters**
+__Props to coord__: convert from properties to coordinate
 
--   `prop` **Array** the pitch in property format
--   `p`  
+### Parameters
 
-Returns **Array** the pitch in coordinate format
+* `prop` **`Array`** the pitch in property format
 
-# rtc
+
+
+Returns `Array` the pitch in coordinate format
+
+
+## `rtc`
 
 Roman to coordinate: convert from [roman numerals](https://en.wikipedia.org/wiki/Roman_numeral_analysis)
-to [pitch coordinates](<>)
+to [pitch coordinates]()
 
-**Parameters**
+### Parameters
 
--   `str` **String** the roman numeral string
+* `str` **`String`** the roman numeral string
 
-**Examples**
 
-```javascript
+### Examples
+
+```js
 rtc('V') // => [1]
 rtc('bII') // => [-5]
 ```
 
-Returns **Array** a coord or null if not valid roman numeral literal
+Returns `Array` a coord or null if not valid roman numeral literal
