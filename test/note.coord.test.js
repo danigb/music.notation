@@ -1,23 +1,23 @@
 var vows = require('vows')
 var assert = require('assert')
-var parse = require('..').note.toCoord
+var note = require('..').note
 
 vows.describe('note to coord').addBatch({
   'parse pitch class': function () {
-    assert.deepEqual('F C G D A E B'.split(' ').map(parse),
+    assert.deepEqual('F C G D A E B'.split(' ').map(note.coord),
       [ [ -1 ], [ 0 ], [ 1 ], [ 2 ], [ 3 ], [ 4 ], [ 5 ] ])
-    assert.deepEqual('F# C# G# D# A# E# B#'.split(' ').map(parse),
+    assert.deepEqual('F# C# G# D# A# E# B#'.split(' ').map(note.coord),
       [ [6], [ 7 ], [ 8 ], [ 9 ], [ 10 ], [ 11 ], [ 12 ] ])
-    assert.deepEqual('f## c## g## d## a## e## b##'.split(' ').map(parse),
+    assert.deepEqual('f## c## g## d## a## e## b##'.split(' ').map(note.coord),
       [ [ 13 ], [ 14 ], [ 15 ], [ 16 ], [ 17 ], [ 18 ], [ 19 ] ])
-    assert.deepEqual('Fb Cb Gb Db Ab Eb Bb'.split(' ').map(parse),
+    assert.deepEqual('Fb Cb Gb Db Ab Eb Bb'.split(' ').map(note.coord),
       [ [ -8 ], [ -7 ], [ -6 ], [ -5 ], [ -4 ], [ -3 ], [ -2 ] ])
   },
   'use cached': function () {
-    assert.deepEqual(parse('C'), [ 0 ])
+    assert.deepEqual(note.coord('C'), [ 0 ])
   },
   'parse pitch': function () {
-    assert.deepEqual('F4 C4 G4 D4 A4 E4 B4'.split(' ').map(parse),
+    assert.deepEqual('F4 C4 G4 D4 A4 E4 B4'.split(' ').map(note.coord),
       [[ -1, 5, null ],
       [ 0, 4, null ],
       [ 1, 4, null ],
@@ -25,7 +25,7 @@ vows.describe('note to coord').addBatch({
       [ 3, 3, null ],
       [ 4, 2, null ],
       [ 5, 2, null ]])
-    assert.deepEqual('F#3 C#3 G#3 D#3 A#3 E#3 B#3'.split(' ').map(parse),
+    assert.deepEqual('F#3 C#3 G#3 D#3 A#3 E#3 B#3'.split(' ').map(note.coord),
       [ [ 6, 0, null ],
       [ 7, -1, null ],
       [ 8, -1, null ],
@@ -33,7 +33,7 @@ vows.describe('note to coord').addBatch({
       [ 10, -2, null ],
       [ 11, -3, null ],
       [ 12, -3, null ] ])
-    assert.deepEqual('Fb6 Cb6 Gb6 Db6 Ab6 Eb6 Bb6'.split(' ').map(parse),
+    assert.deepEqual('Fb6 Cb6 Gb6 Db6 Ab6 Eb6 Bb6'.split(' ').map(note.coord),
       [ [ -8, 11, null ],
       [ -7, 10, null ],
       [ -6, 10, null ],
@@ -41,7 +41,7 @@ vows.describe('note to coord').addBatch({
       [ -4, 9, null ],
       [ -3, 8, null ],
       [ -2, 8, null ] ])
-    assert.deepEqual('C0 D0 E0 F0 G0 A0 B0'.split(' ').map(parse),
+    assert.deepEqual('C0 D0 E0 F0 G0 A0 B0'.split(' ').map(note.coord),
       [ [ 0, 0, null ],
       [ 2, -1, null ],
       [ 4, -2, null ],
@@ -51,7 +51,7 @@ vows.describe('note to coord').addBatch({
       [ 5, -2, null ] ])
   },
   'negative octaves': function () {
-    assert.deepEqual('f-1 c-1 g-1 d-1 a-1 e-1 b-1'.split(' ').map(parse),
+    assert.deepEqual('f-1 c-1 g-1 d-1 a-1 e-1 b-1'.split(' ').map(note.coord),
       [ [ -1, 0, null ],
       [ 0, -1, null ],
       [ 1, -1, null ],
@@ -61,16 +61,16 @@ vows.describe('note to coord').addBatch({
       [ 5, -3, null ] ])
   },
   'parse duration': function () {
-    assert.deepEqual('C4:1 D3:2 e2:3 f#3:4'.split(' ').map(parse),
+    assert.deepEqual('C4:1 D3:2 e2:3 f#3:4'.split(' ').map(note.coord),
     [ [ 0, 4, 1 ],
       [ 2, 2, 2 ],
       [ 4, 0, 3 ],
       [ 6, 0, 4 ] ])
   },
   'invalid values': function () {
-    assert.equal(parse(null), null)
-    assert.equal(parse('blah'), null)
-    assert.equal(parse('CMaj7'), null)
-    assert.equal(parse('C major'), null)
+    assert.equal(note.coord(null), null)
+    assert.equal(note.coord('blah'), null)
+    assert.equal(note.coord('CMaj7'), null)
+    assert.equal(note.coord('C major'), null)
   }
 }).export(module)

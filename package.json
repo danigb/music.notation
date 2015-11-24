@@ -1,11 +1,11 @@
 {
-  "name": "tonal.notation",
+  "name": "tonal.notation-tools",
   "version": "0.0.0",
   "private": "true",
   "description": "The javascript music notation",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npm run docs && npm run dist && npm run disc && npm run coverage",
+    "build": "cp README.md lib/ && npm run docs && npm run dist && npm run disc && npm run coverage",
     "test": "vows --spec test/*.js",
     "docs": "documentation -f md > API.md",
     "dist": "browserify lib/index.js | uglifyjs > dist/notation.min.js&& ls -hall dist/",

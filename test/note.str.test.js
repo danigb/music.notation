@@ -1,15 +1,14 @@
 var vows = require('vows')
 var assert = require('assert')
-var notation = require('..')
-var build = notation.note.fromCoord
+var note = require('..').note
 
 function test (notes) {
   var expected = notes.split(' ')
-  var actual = expected.map(notation.note.toCoord).map(notation.note.fromCoord)
+  var actual = expected.map(note.coord).map(note.str)
   assert.deepEqual(actual, expected)
 }
 
-vows.describe('coord to note').addBatch({
+vows.describe('coord to note string').addBatch({
   'pitch classes': function () {
     test('C D E F G A B')
     test('C# D# E# F# G# A# B#')
@@ -26,10 +25,10 @@ vows.describe('coord to note').addBatch({
     test('C0:1 D0:2 E0:4 F0:8 G0:16 A0:32 B0:64')
   },
   'invalid arrays': function () {
-    assert.equal(build(null), null)
-    assert.equal(build('C2'), null)
-    assert.equal(build(3), null)
-    assert.equal(build({}), null)
-    assert.equal(build([]), null)
+    assert.equal(note.str(null), null)
+    assert.equal(note.str('C2'), null)
+    assert.equal(note.str(3), null)
+    assert.equal(note.str({}), null)
+    assert.equal(note.str([]), null)
   }
 }).export(module)

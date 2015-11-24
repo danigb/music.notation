@@ -72,18 +72,6 @@ A coordinate format is a purely numeric array to represent pitches. The array va
 - 1: number of octaves from C0 or 1P
 - 3: duration
 
-
-#### Function names
-
-| name | meaning | example |
-| --- | --- | --- |
-| cti | Coordinate to interval | `[2, -1] => '2M'`  |
-| ctn | Coordinate to note | `[0, 2, null] => 'C2'` |
-| ctp | Coordinate to properties | `[1, 2] => [4, 0, 2]` |
-| itc | Interval to coordinate | `'2M' => [2, -1]` |
-| ntc | Note to coordinate | `'C2' => [0, 2, null]` |
-| rtc | Roman numeral to coordinate | `'II' => [2, -1]` |
-
 ## License
 
 MIT License

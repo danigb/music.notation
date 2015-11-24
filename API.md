@@ -23,80 +23,6 @@ str([1, 0, 1]) // => '9M'
 Returns `String` the interval string in shorthand notation or null if not valid interval
 
 
-## `ctn`
-
-__Coord to note__: Convert from [array notation](https://github.com/danigb/music.array.notation)
-to [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-
-Array length must be 1 or 3 (see array notation documentation)
-
-The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
-is always uppercase, and the accidentals, octave and duration are optional.
-
-This function is memoized for better perfomance.
-
-### Parameters
-
-* `arr` **`Array`** the note in array notation
-
-
-### Examples
-
-```js
-var str = require('tonal.notation/ctn')
-str([0]) // => 'F'
-str([0, 4]) // => null (its an interval)
-str([0, 4, null]) // => 'F4'
-str([0, 4, 2]) // => 'F4/2'
-```
-
-Returns `String` the note in scientific notation or null if not valid note array
-
-
-## `ctp`
-
-__Coord to props__: Convert from [coord pitch notation]()
-to [props pitch notation]()
-
-The properties is in the form [number, alteration, octave, duration]
-
-### Parameters
-
-* `array` **`Array`** the pitch in array notation
-
-
-### Examples
-
-```js
-var props = require('tonal.notation/ctp')
-props([2, 1, 4]) // => [1, 2, 4]
-```
-
-Returns `Array` the properties array
-
-
-## `exports`
-
-Note parse: parse notes and pitched elements (like chords or scales)
-
-Returns an array with:
-
-- 0: the complete string
-- 1: the note letter
-- 2: the accidentals
-- 3: the octave
-- 4: the duration
-- 5: the element name
-
-### Parameters
-
-* `source` **`String`** the string to be parsed
-
-
-
-Returns `Array` the parsed parts or null if not valid note
-
-
 ## `exports`
 
 Roman numeral parser: parse roman numerals and generic chords structures
@@ -146,10 +72,77 @@ parse('-2M') // => [6, -1, -1]
 Returns `Array` the interval in array notation or null if not a valid interval
 
 
-## `ntc`
+## `notation.coord`
 
-__Note to coord__: Convert from [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
-to [coord pitch notation](https://github.com/danigb/music.array.notation)
+Decorate coordtinate conversion functions
+
+It helps creating functions that convert from string to pitch in coordinate format.
+Basically it does two things:
+- ensure the function only receives strings
+- memoize the result
+
+
+
+### Examples
+
+```js
+var coord = require('tonal.notataion/coord')
+var parse = coord(function (str) {
+  // str is ALWAYS a string
+  // the return value is memoized
+})
+```
+
+
+
+## `notation.interval`
+
+Get a interval from a string (or null if not valid interval)
+
+### Parameters
+
+* `src` **`String`** the source
+
+
+### Examples
+
+```js
+interval = require('tonal.notation/interval')
+interval('2M') // => '2M'
+interval('2') // => '2M'
+interval('2m') // => '2m'
+interval('2b') // => '2m'
+interval('C') // => null
+```
+
+Returns `String` the interval in short notation
+
+
+## `notation.note`
+
+Get a note from a string (or null if not valid note)
+
+### Parameters
+
+* `src` **`String`** the source
+
+
+### Examples
+
+```js
+note = require('tonal.notation/note')
+note('fx2') // => 'F##2'
+note('bbb') // => 'Bbb'
+note('blah') // => null
+```
+
+Returns `String` the note in scientific notation
+
+
+## `note.coord`
+
+Get a pitch in [coord pitch notation](https://github.com/danigb/music.array.notation)
+from a string in [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
 
 The string to parse must be in the form of: `letter[accidentals][octave]`
 The accidentals can be up to four # (sharp) or b (flat) or two x (double sharps)
@@ -164,23 +157,102 @@ This function is cached for better performance.
 ### Examples
 
 ```js
-var parse = require('tonal.notation/ntc')
-parse('C') // => [ 0 ]
-parse('c#') // => [ 8 ]
-parse('c##') // => [ 16 ]
-parse('Cx') // => [ 16 ] (double sharp)
-parse('Cb') // => [ -6 ]
-parse('db') // => [ -4 ]
-parse('G4') // => [ 2, 3, null ]
-parse('c#3') // => [ 8, -1, null ]
+var noteCoord = require('tonal.notation/note/coord')
+noteCoord('C') // => [ 0 ]
+noteCoord('c#') // => [ 8 ]
+noteCoord('c##') // => [ 16 ]
+noteCoord('Cx') // => [ 16 ] (double sharp)
+noteCoord('Cb') // => [ -6 ]
+noteCoord('db') // => [ -4 ]
+noteCoord('G4') // => [ 2, 3, null ]
+noteCoord('c#3') // => [ 8, -1, null ]
 ```
 
 Returns `Array` the note in array notation or null if not valid note
 
 
-## `ptc`
+## `note.split`
 
-__Props to coord__: convert from properties to coordinate
+Split a note string into its parts
+
+It returns an array with:
+
+- 0: the complete string
+- 1: the note letter
+- 2: the accidentals
+- 3: the octave
+- 4: the duration
+- 5: the element name
+
+### Parameters
+
+* `source` **`String`** the string to be parsed
+
+
+### Examples
+
+```js
+var split = require('tonal.notation/note.split')
+split('c#4') // => ['c#4', 'c', '#', '4', '', '']
+```
+
+Returns `Array` the parsed parts or null if not valid note
+
+
+## `note.str`
+
+Get [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation) string
+from pitch in [coordinate notation]()
+
+Array length must be 1 or 3 (see array notation documentation)
+
+The returned string format is `letter[+ accidentals][+ octave][/duration]` where the letter
+is always uppercase, and the accidentals, octave and duration are optional.
+
+This function is memoized for better perfomance.
+
+### Parameters
+
+* `arr` **`Array`** the note in array notation
+
+
+### Examples
+
+```js
+var str = require('tonal.notation/note.str')
+str([0]) // => 'F'
+str([0, 4]) // => null (its an interval)
+str([0, 4, null]) // => 'F4'
+str([0, 4, 2]) // => 'F4/2'
+```
+
+Returns `String` the note in scientific notation or null if not valid note array
+
+
+## `props`
+
+Get properties from a pitch in coordinate format
+
+The properties is an array with the form [number, alteration, octave, duration]
+
+### Parameters
+
+* `array` **`Array`** the pitch in coord format
+
+
+### Examples
+
+```js
+var props = require('tonal.notation/props')
+props([2, 1, 4]) // => [1, 2, 4]
+```
+
+Returns `Array` the pitch in property format
+
+
+## `props.coord`
+
+Get a pitch in coordinate format from properties
 
 ### Parameters
 
@@ -209,3 +281,5 @@ rtc('bII') // => [-5]
 ```
 
 Returns `Array` a coord or null if not valid roman numeral literal
+
+

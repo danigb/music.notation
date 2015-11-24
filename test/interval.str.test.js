@@ -1,16 +1,14 @@
 var vows = require('vows')
 var assert = require('assert')
-var notation = require('..')
-var toCoord = notation.interval.toCoord
-var fromCoord = notation.interval.fromCoord
+var interval = require('..').interval
 
 function test (intervals, expected) {
   expected = expected || intervals
-  var actual = intervals.split(' ').map(toCoord)
-  assert.deepEqual(actual.map(fromCoord).join(' '), expected)
+  var actual = intervals.split(' ').map(interval.coord)
+  assert.deepEqual(actual.map(interval.str).join(' '), expected)
 }
 
-vows.describe('coord to interval').addBatch({
+vows.describe('coord to interval string').addBatch({
   'simples': function () {
     test('1 2 3 4 5 6 7 8', '1P 2M 3M 4P 5P 6M 7M 8P')
     test('1b 2b 3b 4b 5b 6b 7b 8b', '1d 2m 3m 4d 5d 6m 7m 8d')
@@ -23,10 +21,10 @@ vows.describe('coord to interval').addBatch({
     test('-1 -2 -3 -4 -5 -6 -7 -8', '1P -2M -3M -4P -5P -6M -7M -8P')
   },
   'invalid arrays': function () {
-    assert.equal(fromCoord(null), null)
-    assert.equal(fromCoord('C2'), null)
-    assert.equal(fromCoord(3), null)
-    assert.equal(fromCoord({}), null)
-    assert.equal(fromCoord([]), null)
+    assert.equal(interval.str(null), null)
+    assert.equal(interval.str('C2'), null)
+    assert.equal(interval.str(3), null)
+    assert.equal(interval.str({}), null)
+    assert.equal(interval.str([]), null)
   }
 }).export(module)
