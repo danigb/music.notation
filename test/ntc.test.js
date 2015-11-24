@@ -61,7 +61,7 @@ vows.describe('note to coord').addBatch({
       [ 5, -3, null ] ])
   },
   'parse duration': function () {
-    assert.deepEqual('C4/1 D3/2 e2/3 f#3/4'.split(' ').map(parse),
+    assert.deepEqual('C4:1 D3:2 e2:3 f#3:4'.split(' ').map(parse),
     [ [ 0, 4, 1 ],
       [ 2, 2, 2 ],
       [ 4, 0, 3 ],
@@ -70,5 +70,7 @@ vows.describe('note to coord').addBatch({
   'invalid values': function () {
     assert.equal(parse(null), null)
     assert.equal(parse('blah'), null)
+    assert.equal(parse('CMaj7'), null)
+    assert.equal(parse('C major'), null)
   }
 }).export(module)

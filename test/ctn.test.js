@@ -23,7 +23,7 @@ vows.describe('coord to note').addBatch({
     test('C-1 D-1 E-1 F-1 G-1 A-1 B-1')
   },
   'durations': function () {
-    test('C0/1 D0/2 E0/4 F0/8 G0/16 A0/32 B0/64')
+    test('C0:1 D0:2 E0:4 F0:8 G0:16 A0:32 B0:64')
   },
   'invalid arrays': function () {
     assert.equal(build(null), null)

@@ -1,6 +1,6 @@
 {
   "name": "tonal.notation",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "The javascript music notation",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,8 @@
   "keywords": [
     "music",
     "notation",
+    "note",
+    "interval",
     "parser",
     "tonal"
   ],
@@ -21,9 +23,5 @@
   "bugs": {
     "url": "https://github.com/danigb/tonal.notation/issues"
   },
-  "homepage": "https://github.com/danigb/tonal.notation#readme",
-  "devDependencies": {
-  },
-  "dependencies": {
-  }
+  "homepage": "https://github.com/danigb/tonal.notation#readme"
 }
