@@ -1,4 +1,4 @@
-## `notation.interval`
+## `interval`
 
 Get a interval from a string (or null if not valid interval)
 
@@ -21,7 +21,7 @@ interval('C') // => null
 Returns `String` the interval in short notation
 
 
-## `notation.interval.parse`
+## `interval.parse`
 
 Parse a [interval shorthand notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
 to [interval coord notation](https://github.com/danigb/music.array.notation)
@@ -45,7 +45,7 @@ parse('-2M') // => [6, -1, -1]
 Returns `Array` the interval in array notation or null if not a valid interval
 
 
-## `notation.interval.str`
+## `interval.str`
 
 Build a string with [shorthand interval notation](https://en.wikipedia.org/wiki/Interval_(music)#Shorthand_notation)
 from an interval in [array notation](https://github.com/danigb/music.array.notation)
@@ -70,7 +70,7 @@ str([1, 0, 1]) // => '9M'
 Returns `String` the interval string in shorthand notation or null if not valid interval
 
 
-## `notation.note`
+## `note`
 
 Get a note from a string (or null if not valid note)
 
@@ -91,7 +91,7 @@ note('blah') // => null
 Returns `String` the note in scientific notation
 
 
-## `notation.note.parse`
+## `note.parse`
 
 Get a pitch in [coord pitch notation](https://github.com/danigb/music.array.notation)
 from a string in [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)
@@ -123,7 +123,7 @@ parse('c#3') // => [ 8, -1, null ]
 Returns `Array` the note in array notation or null if not valid note
 
 
-## `notation.note.split`
+## `note.split`
 
 Split a note string into its parts
 
@@ -151,7 +151,7 @@ split('c#4') // => ['c#4', 'c', '#', '4', '', '']
 Returns `Array` the parsed parts or null if not valid note
 
 
-## `notation.note.str`
+## `note.str`
 
 Get [scientific pitch notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation) string
 from pitch in [coordinate notation]()
@@ -181,109 +181,6 @@ str([0, 4, 2]) // => 'F4/2'
 Returns `String` the note in scientific notation or null if not valid note array
 
 
-## `notation.parser`
-
-Decorate coordtinate conversion functions
-
-It helps creating functions that convert from string to pitch in coordinate format.
-Basically it does two things:
-- ensure the function only receives strings
-- memoize the result
-
-
-
-### Examples
-
-```js
-var parser = require('tonal.notataion/parser')
-var parse = parser(function (str) {
-  // str is ALWAYS a string
-  // the return value is memoized
-})
-```
-
-
-
-## `notation.props`
-
-Get properties from a pitch in coordinate format
-
-The properties is an array with the form [number, alteration, octave, duration]
-
-### Parameters
-
-* `array` **`Array`** the pitch in coord format
-
-
-### Examples
-
-```js
-var props = require('tonal.notation/props')
-props([2, 1, 4]) // => [1, 2, 4]
-```
-
-Returns `Array` the pitch in property format
-
-
-## `notation.props.coord`
-
-Get a pitch in coordinate format from properties
-
-### Parameters
-
-* `prop` **`Array`** the pitch in property format
-
-
-
-Returns `Array` the pitch in coordinate format
-
-
-## `notation.roman.parser`
-
-Roman to coordinate: convert from [roman numerals](https://en.wikipedia.org/wiki/Roman_numeral_analysis)
-to [pitch coordinates]()
-
-### Parameters
-
-* `str` **`String`** the roman numeral string
-
-
-### Examples
-
-```js
-var parse = require('tonal.notation/roman.parser')
-parse('V') // => [1]
-parse('bII') // => [-5]
-```
-
-Returns `Array` a coord or null if not valid roman numeral literal
-
-
-## `notation.roman.split`
-
-Split a roman numeral string into its parts.
-
-Returns an array contains:
-
-- 0: the complete string
-- 1: the accidentals
-- 2: the roman numeral
-- 3: the structure name
-
-### Parameters
-
-* `source` **`String`** the string to parse
-
-
-### Examples
-
-```js
-split('bVIIMaj9') // => ['bVIIMaj9', 'b', 'VII', 'Maj9']
-```
-
-Returns `Array` array - the string parts
-
-
 ## `operation`
 
 Decoration a function that works with intervals, notes or pitches. It allows
@@ -309,6 +206,29 @@ var add = operation(parse, str, function(a, b) {
   return [a[0] + b[0], a[1] + b[1]]
 })
 add('3m', '3M') // => '5P'
+```
+
+
+
+## `parser`
+
+Decorate coordtinate conversion functions
+
+It helps creating functions that convert from string to pitch in array format.
+Basically it does two things:
+- ensure the function only receives strings
+- memoize the result
+
+
+
+### Examples
+
+```js
+var parser = require('tonal.notataion/parser')
+var parse = parser(function (str) {
+  // str is ALWAYS a string
+  // the return value is memoized
+})
 ```
 
 
@@ -378,5 +298,85 @@ str([0, 2, 4]) // => 'C2/4'
 ```
 
 Returns `String` the pitch string
+
+
+## `props`
+
+Get properties from a pitch in array format
+
+The properties is an array with the form [number, alteration, octave, duration]
+
+### Parameters
+
+* `array` **`Array`** the pitch in coord format
+
+
+### Examples
+
+```js
+var props = require('tonal.notation/props')
+props([2, 1, 4]) // => [1, 2, 4]
+```
+
+Returns `Array` the pitch in property format
+
+
+## `props.array`
+
+Get a pitch in array format from properties
+
+### Parameters
+
+* `prop` **`Array`** the pitch in property format
+
+
+
+Returns `Array` the pitch in array format
+
+
+## `roman.parser`
+
+Roman to coordinate: convert from [roman numerals](https://en.wikipedia.org/wiki/Roman_numeral_analysis)
+to [pitch coordinates]()
+
+### Parameters
+
+* `str` **`String`** the roman numeral string
+
+
+### Examples
+
+```js
+var parse = require('tonal.notation/roman.parser')
+parse('V') // => [1]
+parse('bII') // => [-5]
+```
+
+Returns `Array` a coord or null if not valid roman numeral literal
+
+
+## `roman.split`
+
+Split a roman numeral string into its parts.
+
+Returns an array contains:
+
+- 0: the complete string
+- 1: the accidentals
+- 2: the roman numeral
+- 3: the structure name
+
+### Parameters
+
+* `source` **`String`** the string to parse
+
+
+### Examples
+
+```js
+split('bVIIMaj9') // => ['bVIIMaj9', 'b', 'VII', 'Maj9']
+```
+
+Returns `Array` array - the string parts
 
 
