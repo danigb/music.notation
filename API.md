@@ -284,3 +284,70 @@ split('bVIIMaj9') // => ['bVIIMaj9', 'b', 'VII', 'Maj9']
 Returns `Array` array - the string parts
 
 
+## `pitch`
+
+Get a pitch from a string. In tonal a pitch it's a note, an interval or a
+pitch class. It allows us to work with this elements in an uniform way.
+
+### Parameters
+
+* `source` **`String`** the string
+
+
+### Examples
+
+```js
+var pitch = require('tonal.notation/pitch')
+pitch('c2') // => 'C2'
+pitch('2') // => '2M'
+pitch('blah') // => null
+```
+
+Returns `String` the pitch or null if not a valid pitch
+
+
+## `pitch.parse`
+
+Convert a note or interval string to a [pitch in coord notation]()
+
+### Parameters
+
+* `pitch` **`String`** the note or interval to parse
+
+
+### Examples
+
+```js
+var parse = require('tonal.notation/pitch.parse')
+parse('C2') // => [0, 2, null]
+parse('5P') // => [1, 0]
+```
+
+Returns `Array` the pitch in array notation
+
+
+## `pitch.str`
+
+Convert a pitch in coordinate notation to string. It deals with notes, pitch
+classes and intervals.
+
+### Parameters
+
+* `pitch` **`Array`** the pitch in array notation
+
+
+### Examples
+
+```js
+var str = require('tonal.notation/pitch.str')
+// pitch class
+str([0]) // => 'C'
+// interval
+str([0, 0]) // => '1P'
+// note
+str([0, 2, 4]) // => 'C2/4'
+```
+
+Returns `String` the pitch string
+
+
