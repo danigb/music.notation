@@ -1,6 +1,7 @@
 CHANGELOG
 
 
+[0.0.13] Add operation (6.7K / 5K)
 [0.0.12] Add pitch
 [0.0.11] .coord is now .parse and / to set note durations
 [0.0.10] Rename functions (5.5K)

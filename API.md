@@ -284,6 +284,35 @@ split('bVIIMaj9') // => ['bVIIMaj9', 'b', 'VII', 'Maj9']
 Returns `Array` array - the string parts
 
 
+## `operation`
+
+Decoration a function that works with intervals, notes or pitches. It allows
+the decorated function to work with array notation with independence of its
+string representation.
+
+This is the base of the pluggable notation system of tonal.
+
+### Parameters
+
+* `parse` **`Function`** the parser
+* `str` **`Function`** the string builder
+* `op` **`Function`** the operation to decorate
+
+
+### Examples
+
+```js
+var operation = require('tonal.notation/operation')
+var parse = require('tonal.notation/interval.parse')
+var str = require('tonal.notation/interval.str')
+var add = operation(parse, str, function(a, b) {
+  return [a[0] + b[0], a[1] + b[1]]
+})
+add('3m', '3M') // => '5P'
+```
+
+
+
 ## `pitch`
 
 Get a pitch from a string. In tonal a pitch it's a note, an interval or a
